@@ -15,6 +15,9 @@
         <div class="toc" id="toc-auto">
             <h2 class="toc-title">{{ T "contents" }}</h2>
             <div class="toc-content{{ if eq $toc.auto false }} always-active{{ end }}" id="toc-content-auto"></div>
+            <div class="toc-content{{ if eq $toc.auto false }} always-active{{ end }}" id="twitter-auto" style="position: relative; margin-top: 1rem; padding-top: 1rem;">
+                <a class="twitter-timeline" data-width="300" data-height="600" data-dnt="true" data-chrome="noborders nofooter noheader" href="https://twitter.com/pkblah?ref_src=twsrc%5Etfw">Tweets by pkblah</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+            </div>
         </div>
     {{- end -}}
 
@@ -47,6 +50,9 @@
                         {{- dict "Categories" . | T "includedInCategories" | safeHTML -}}
                     </span>
                 {{- end -}}
+                <span class="sharebtns">
+                    {{- partial "plugin/share.html" . -}}
+                </span>
             </div>
             <div class="post-meta-line">
                 {{- with .Site.Params.dateformat | default "2006-01-02" | .PublishDate.Format -}}

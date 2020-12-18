@@ -16,6 +16,10 @@
   .search-dropdown.desktop {
     right: 1rem;
   }
+
+  #twitter-feed-auto {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 960px) {
@@ -33,6 +37,10 @@
 
   #header-desktop .header-wrapper {
     padding-left: 1rem;
+  }
+
+  #twitter-feed-auto {
+    display: none;
   }
 }
 
@@ -76,5 +84,9 @@
         display: block;
       }
     }
+  }
+
+  #twitter-feed-auto {
+    display: none;
   }
 }
