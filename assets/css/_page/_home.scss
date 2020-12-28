@@ -12,15 +12,17 @@
         width: 8rem;
         height: auto;
         margin: 0 auto;
+        /*
         @include border-radius(100%);
         @include box-shadow(0 0 0 .3618em rgba(0, 0, 0, .05));
+        */
         @include transition(all 0.4s ease);
-
-        &:hover {
-          position: relative;
-          @include transform(translateY(-.75rem));
-        }
       }
+    }
+
+    &:hover .home-avatar img{
+      position: relative;
+      @include transform(translateY(-.75rem));
     }
 
     .home-title {
@@ -77,14 +79,17 @@
   }
 
   .summary {
-    padding-top: 1rem;
-    padding-bottom: .8rem;
+    margin: 1.5rem 0;
+    padding: 0.5rem 1rem;
     color: $global-font-color;
-    border-bottom: 1px dashed $global-border-color;
+    border-radius: 10px;
+    border: 1px solid $global-border-color;
+    box-shadow: 0px 0px 5px 0px #888;
 
     [theme=dark] & {
       color: $global-font-color-dark;
-      border-bottom: 1px dashed $global-border-color-dark;
+      border: 1px solid $global-border-color-dark;
+      box-shadow: 0px 0px 5px 0px #fff;
     }
 
     .featured-image-preview {
@@ -114,15 +119,16 @@
 
     .single-title {
       font-size: 1.25rem;
+      font-weight: 500;
       line-height: 140%;
-      margin: 0.4rem 0;
+      margin: 0.5rem 0;
     }
 
     .content {
       @include box(vertical);
       -webkit-line-clamp: 3;
       margin-top: .3rem;
-      width: 100%;
+      width: 98%;
       overflow: hidden;
       text-overflow: ellipsis;
       @include overflow-wrap(break-word);

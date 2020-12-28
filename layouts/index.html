@@ -1,5 +1,6 @@
 {{- define "content" -}}
     {{- $params := .Scratch.Get "params" -}}
+    {{- $s := .Site.Params -}}
     {{- $profile := .Site.Params.home.profile -}}
     {{- $posts := .Site.Params.home.posts -}}
 
@@ -18,6 +19,18 @@
             </div>
         {{- end -}}
 
+        {{- /* Featured */ -}}
+        {{- $postpages := where (where .Site.RegularPages "Permalink" "!=" .Permalink) "Type" "in" $s.mainSections }}
+        {{- $featured := default 3 $s.numberOfFeaturedPosts }}
+        {{- with first $featured (where $postpages "Params.featured" true)}}
+        <div class="feat-section p{{$featured}}">
+        {{- /*T "featured_posts"*/ -}}
+            {{- range . }}
+            {{- .Render "featured" -}}
+            {{- end }}
+        </div>
+        {{- end }}
+
         {{- /* Posts */ -}}
         {{- if ne $posts.enable false | and .Site.RegularPages -}}
             {{- /* Paginate */ -}}
@@ -27,6 +40,7 @@
             {{- else -}}
                 {{- $pages = where $pages "Params.hiddenfromhomepage" "!=" true -}}
             {{- end -}}
+            {{- $pages = where $pages "Params.featured"  "!=" true  -}}
             {{- with $posts.paginate | default .Site.Params.paginate -}}
                 {{- $pages = $.Paginate $pages . -}}
             {{- else -}}
