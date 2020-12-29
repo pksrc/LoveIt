@@ -22,6 +22,7 @@ enableGitInfo = true
 # whether to use emoji code
 # 是否使用 emoji 代码
 enableEmoji = true
+ignoreErrors = ["error-remote-getjson"]
 
 [languages]
   [languages.en]

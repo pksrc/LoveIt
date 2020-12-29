@@ -466,6 +466,78 @@ class Theme {
         }
     }
 
+    initSidebar() {
+        const $sideNav = document.getElementById('SidebarNavigation');
+        if ($sideNav === null) return;
+        if (document.getElementById('toc-static').getAttribute('kept') || this.util.isTocStatic()) {
+            const $tocContentStatic = document.getElementById('toc-content-static');
+            if ($sideNav.parentElement !== $tocContentStatic) {
+                $sideNav.parentElement.removeChild($sideNav);
+                //$tocContentStatic.appendChild($sideNav);
+            }
+            if (this._sidebarOnScroll) this.scrollEventSet.delete(this._sidebarOnScroll);
+        } else {
+            const $sidebarAuto = document.getElementById('sidebar-auto');
+            if ($sideNav.parentElement !== $sidebarAuto) {
+                $sideNav.parentElement.removeChild($sideNav);
+                $sidebarAuto.appendChild($sideNav);
+            }
+            const $sidebar = document.getElementById('sidebar');
+            const $page = document.getElementsByClassName('page')[0];
+            const rect = $page.getBoundingClientRect();
+            $sidebar.style.left = `${rect.left - 270}px`;
+            $sidebar.style.maxWidth = `${$page.getBoundingClientRect().left - 20}px`;
+            $sidebar.style.visibility = 'visible';
+            const $sidebarLinkElements = $sideNav.querySelectorAll('a:first-child');
+            const $sidebarLiElements = $sideNav.getElementsByTagName('li');
+            const $headerLinkElements = document.getElementsByClassName('headerLink');
+            const headerIsFixed = document.body.getAttribute('header-desktop') !== 'normal';
+            const headerHeight = document.getElementById('header-desktop').offsetHeight;
+            const TOP_SPACING = 20 + (headerIsFixed ? headerHeight : 0);
+            const minTocTop = $sidebar.offsetTop;
+            const minScrollTop = minTocTop - TOP_SPACING + (headerIsFixed ? 0 : headerHeight);
+            this._sidebarOnScroll = this._sidebarOnScroll || (() => {
+                const footerTop = document.getElementById('post-footer').offsetTop;
+                const maxTocTop = footerTop - $sidebar.getBoundingClientRect().height;
+                const maxScrollTop = maxTocTop - TOP_SPACING + (headerIsFixed ? 0 : headerHeight);
+                if (this.newScrollTop < minScrollTop) {
+                    $sidebar.style.position = 'fixed';
+                    $sidebar.style.top = `${minTocTop}px`;
+                } else if (this.newScrollTop > maxScrollTop) {
+                    $sidebar.style.position = 'fixed';
+                    $sidebar.style.top = `${TOP_SPACING}px`;
+                } else {
+                    $sidebar.style.position = 'fixed';
+                    $sidebar.style.top = `${TOP_SPACING}px`;
+                }
+
+                this.util.forEach($sidebarLinkElements, $sidebarLink => { $sidebarLink.classList.remove('active'); });
+                this.util.forEach($sidebarLiElements, $sidebarLi => { $sidebarLi.classList.remove('has-active'); });
+                const INDEX_SPACING = 20 + (headerIsFixed ? headerHeight : 0);
+                let activeTocIndex = $headerLinkElements.length - 1;
+                for (let i = 0; i < $headerLinkElements.length - 1; i++) {
+                    const thisTop = $headerLinkElements[i].getBoundingClientRect().top;
+                    const nextTop = $headerLinkElements[i + 1].getBoundingClientRect().top;
+                    if ((i == 0 && thisTop > INDEX_SPACING)
+                     || (thisTop <= INDEX_SPACING && nextTop > INDEX_SPACING)) {
+                        activeTocIndex = i;
+                        break;
+                    }
+                }
+                if (activeTocIndex !== -1) {
+                    $sidebarLinkElements[activeTocIndex].classList.add('active');
+                    let $parent = $sidebarLinkElements[activeTocIndex].parentElement;
+                    while ($parent !== $sideNav) {
+                        $parent.classList.add('has-active');
+                        $parent = $parent.parentElement.parentElement;
+                    }
+                }
+            });
+            this._sidebarOnScroll();
+            this.scrollEventSet.add(this._sidebarOnScroll);
+        }
+    }
+
     initMath() {
         if (this.config.math) renderMathInElement(document.body, this.config.math);
     }
@@ -682,6 +754,7 @@ class Theme {
                     this._resizeTimeout = null;
                     for (let event of this.resizeEventSet) event();
                     this.initToc();
+                    this.initSidebar();
                     this.initMermaid();
                     this.initSearch();
                 }, 100);
@@ -722,7 +795,7 @@ class Theme {
         window.setTimeout(() => {
             this.initToc();
             this.initComment();
-
+            this.initSidebar();
             this.onScroll();
             this.onResize();
             this.onClickMask();

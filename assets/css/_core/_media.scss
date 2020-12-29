@@ -20,6 +20,10 @@
   #twitter-feed-auto {
     display: none;
   }
+
+  #sidebar {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 960px) {
@@ -40,6 +44,9 @@
   }
 
   #twitter-feed-auto {
+    display: none;
+  }
+  #sidebar {
     display: none;
   }
 }
@@ -87,6 +94,9 @@
   }
 
   #twitter-feed-auto {
+    display: none;
+  }
+  #sidebar {
     display: none;
   }
 }
