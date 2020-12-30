@@ -1,0 +1,20 @@
+{{- $d := .Get "timelinedate" -}}
+{{- $s := split .Inner "\n" -}}
+<div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content ">
+    {{- range $s -}}
+    {{- $c := split . "::" -}}
+        {{- if eq (len $c) 2 -}}
+            {{- range $i, $v := $c -}}
+                {{- if eq $i 0 -}}
+                <h2> <span class="post-title">{{- $v | markdownify -}}</span> </h2>
+                {{- else -}}
+                    <p>{{- $v | markdownify -}}</p>
+                {{- end -}}
+            {{- end -}}
+            <div class="date">{{- dateFormat "Jan 2006" $d -}}</div>
+        {{- end -}}
+    {{- end -}}
+    </div>
+</div>

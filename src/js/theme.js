@@ -472,7 +472,7 @@ class Theme {
         if (document.getElementById('toc-static').getAttribute('kept') || this.util.isTocStatic()) {
             const $tocContentStatic = document.getElementById('toc-content-static');
             if ($sideNav.parentElement !== $tocContentStatic) {
-                $sideNav.parentElement.removeChild($sideNav);
+                //$sideNav.parentElement.removeChild($sideNav);
                 //$tocContentStatic.appendChild($sideNav);
             }
             if (this._sidebarOnScroll) this.scrollEventSet.delete(this._sidebarOnScroll);
@@ -503,12 +503,15 @@ class Theme {
                 if (this.newScrollTop < minScrollTop) {
                     $sidebar.style.position = 'fixed';
                     $sidebar.style.top = `${minTocTop}px`;
+                    $sidebar.style.left = `${$page.getBoundingClientRect().left - 270}px`;
                 } else if (this.newScrollTop > maxScrollTop) {
-                    $sidebar.style.position = 'fixed';
-                    $sidebar.style.top = `${TOP_SPACING}px`;
+                    $sidebar.style.position = 'absolute';
+                    $sidebar.style.top = `${maxTocTop}px`;
+                    $sidebar.style.left = `${- 270}px`;
                 } else {
                     $sidebar.style.position = 'fixed';
                     $sidebar.style.top = `${TOP_SPACING}px`;
+                    $sidebar.style.left = `${$page.getBoundingClientRect().left - 270}px`;
                 }
 
                 this.util.forEach($sidebarLinkElements, $sidebarLink => { $sidebarLink.classList.remove('active'); });
