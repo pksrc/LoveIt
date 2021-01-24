@@ -13,6 +13,34 @@ section.header__expandMenu {
   margin: 0 .5rem;
   transition: opacity 100ms linear;
   cursor: pointer;
+
+  .promote {
+    color: orange !important; 
+    font-size: 0.75rem; 
+    font-weight: 600;
+    padding: 5px 0 0 0;
+  }
+  
+  img.img {
+  height: 20px;
+  width: 20px;
+  margin: -4px auto;
+  }
+  
+  img.svg {
+  height: 20px;
+  width: 20px;
+  margin: -4px auto;
+  transform: scaleX(-1);
+  }
+  
+  [theme=dark] .transparent {
+  opacity: 0.9;
+  }
+  
+  .transparent {
+  opacity: 0.7;
+  }
 }
 
 .nav--link:hover img.svg{
@@ -86,7 +114,7 @@ section.header__expandMenu {
   height: 1.25rem;
   position: fixed;
   top: 4rem;
-  z-index: 1;
+  z-index: 3;
   left: 0;
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
   transition: transform 100ms linear;
@@ -101,7 +129,7 @@ section.header__expandMenu {
 .header__expandMenu {
   position: fixed;
   top: 4.5rem;
-  z-index: 1;
+  z-index: 3;
   background-color: gray !important;
   border-radius: 0.5rem;
   perspective: 100px;
@@ -151,8 +179,13 @@ section.header__expandMenu {
 
 .subMenu--item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   cursor: pointer;
+}
+
+.subMenu--item i, .subMenu--item img {
+  color:#55bde2;
+  padding-top: 0.4rem;
 }
 
 .label__container {
@@ -170,14 +203,15 @@ section.header__expandMenu {
 }
 
 .label--desc {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   transform: translateY(-3px);
   transition: color 100ms ease;
   color: $global-font-color;
+  line-height: 1.25rem;
 
-    [theme=dark] & {
-      color: $global-font-color-dark;
-    }
+  [theme=dark] & {
+    color: $global-font-color-dark;
+  }
 }
 
 .subMenu--item + .subMenu--item {
@@ -190,7 +224,7 @@ section.header__expandMenu {
 
 .icon--production {
   height: 14px;
-  transform: translateY(-55%) scale(1.1);
+  //transform: translateY(-55%) scale(1.1);
 }
 
 .right--arrow {
@@ -221,7 +255,7 @@ section.header__expandMenu {
 }
 
 .active {
-  z-index: 1;
+  z-index: 3;
   opacity: 1;
 }
 

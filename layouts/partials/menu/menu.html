@@ -19,13 +19,14 @@
         <ul class="subMenu__items">
           {{ range .Children }}
           <li class="subMenu--item">
-            <i class="fas fa-user-circle fa-fw" style="color:#55bde2"></i>
+            {{ .Pre }}
             <span class="label__container">
               <div class="label">
                 <a href="{{ .URL }}">{{ .Name }}</a>
                 <svg class="right--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
               </div>
               <div class="label--desc">
+                {{ .Post }}
               </div>
             </span>
           </li>

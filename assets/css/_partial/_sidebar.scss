@@ -1,0 +1,81 @@
+// ==============================
+// sidebar style
+// 自定义样式
+// ==============================
+
+  /* sidebar */
+  aside.sidebar {
+	width: 230px;
+	position: absolute;
+	top: 160px;
+	left: -260px;
+	border-right: 4px solid #f0f0f0;
+	padding: 0 15px 0 0;
+  }
+  [theme=dark] aside.sidebar {
+	border-right-color: #363636;
+  }
+  .sidebar_inner h2 {
+	font-size: 1.2rem;
+	font-weight: bold;
+	text-transform: uppercase;
+  }
+  
+  .sidebar_inner a:hover {
+	color: #2d96bd;
+  }
+  .sidebar_inner a, a::before, a::after {
+	color: #161209;
+  }
+  
+  [theme=dark] .sidebar_inner a, [theme=dark] .sidebar_inner a::before, [theme=dark] .sidebar_inner a::after {
+	color: #a9a9b3;
+  }
+  .sidebar_inner ul {
+	list-style: none;
+  }
+  .sidebar_inner li {
+	margin-left: -2.5rem;
+	display: list-item;
+  }
+  .sidebar_inner ul a:first-child::before {
+	content: "|";
+	font-weight: bolder;
+	margin-right: .5rem;
+	color: #2d96bd;
+  }
+  
+  .sidebar .button {
+	background-color: #0077b8;
+	color: #fff;
+	display: inline-flex;
+	margin: 0.15rem;
+	padding: 0.1rem 0.4rem;
+	text-transform: uppercase;
+	border: 1px solid #0077b8;
+	border-radius: 0.75rem;
+	font-size: 0.8rem;
+	align-items: center;
+	user-select: none;
+	min-height: 1.5rem;
+	font-weight: 500;
+  }
+  .sidebar .button_translucent {
+	background-color: rgba(0,119,184,0.15);
+	color: #0077b8;
+	border: 1px solid transparent;
+  }
+  .sidebar .button_tally {
+	padding: 0 0.5rem;
+	border-radius: 0.5rem;
+	background-color: #0077b8;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	color: #fff;
+	margin: 0 0 0 0.5rem;
+	font-size: 0.7rem;
+	height: 1.25rem;
+	font-weight: 700;
+  }
+  
