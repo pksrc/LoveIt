@@ -138,6 +138,11 @@
         color: $global-font-secondary-color-dark;
       }
 
+      a {
+        text-decoration: none !important;
+        color: $global-font-secondary-color !important;
+      }
+
       h2,
       h3,
       h4,

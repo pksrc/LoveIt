@@ -172,6 +172,7 @@ header {
 
       .menu-inner {
         float: right;
+        display: flex;
       }
 
       .menu-item {
@@ -194,7 +195,7 @@ header {
         }
       }
 
-      a.active {
+      li.active,div.active a{
         font-weight: 900;
         color: $header-hover-color;
 

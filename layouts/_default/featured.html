@@ -36,17 +36,19 @@
 
     {{- /* Summary content */ -}}
     <div class="content">
+        <a href="{{ .RelPermalink }}">
         {{- with .Summary -}}
             {{- dict "Content" . "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
         {{- else -}}
             {{- .Description | safeHTML -}}
         {{- end -}}
+        </a>
+        
     </div>
 
     {{- /* Footer */ -}}
     {{- /* Footer */ -}}
     <div class="feat-footer">
-        <a href="{{ .RelPermalink }}">{{ T "readMore" }}</a>
         {{- with .Params.tags -}}
             <div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;

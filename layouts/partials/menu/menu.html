@@ -1,0 +1,111 @@
+{{- $postpages := where (where .Site.RegularPages "Permalink" "!=" .Permalink) "Type" "in" .Site.Params.mainSections }}
+{{- $featured := default 3 .Site.Params.numberOfFeaturedPosts }}
+        
+<div class="tip"></div>
+
+<section class="header__expandMenu">
+  <div class="menu__container">
+  {{- range .Site.Menus.main -}}
+    {{- $url := .URL | relLangURL -}}
+    {{- with .Page -}}
+        {{- $url = .RelPermalink -}}
+    {{- end -}}
+    
+    {{- /* BEGIN: PK Menu Edits */ -}}
+    {{ if .HasChildren }}
+    <div id="{{ .Name }}">
+      <div class="sub__menu">
+        <h3 class="title">{{ .Name }}</h3>
+        <ul class="subMenu__items">
+          {{ range .Children }}
+          <li class="subMenu--item">
+            <i class="fas fa-user-circle fa-fw" style="color:#55bde2"></i>
+            <span class="label__container">
+              <div class="label">
+                <a href="{{ .URL }}">{{ .Name }}</a>
+                <svg class="right--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </div>
+              <div class="label--desc">
+              </div>
+            </span>
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+    </div>
+    {{- else if eq (trim .Name " ") "Categories" -}}
+    <div id="{{ .Name }}">
+      <div class="sub__menu">
+        <h3 class="title">{{ .Name }}</h3>
+        <ul class="subMenu__items">
+          {{- range $.Site.Taxonomies.categories.ByCount -}}
+          <li class="subMenu--item item--one">
+            <img src="/img/menu/folder-open-solid.svg" class="icon">
+            <span class="label__container">
+              <div class="label">
+                <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }} <sup>{{ .Count }}</sup></a>
+                <svg class="right--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </div>
+            </span>
+          </li>
+          {{- end -}}
+        </ul>
+      </div>
+    </div>
+    {{- else if eq (trim .Name " ") "Tags" -}}
+    <div id="{{ .Name }}">
+      <div class="sub__menu">
+        <h3 class="title">{{ .Name }}</h3>
+        <ul class="subMenu__items sec--menu">
+          {{- range $index, $el := $.Site.Taxonomies.tags.ByCount -}}
+          <li class="subMenu--item item--one">
+            <img src="/img/menu/tags-solid.svg" class="icon">
+            <span class="label__container">
+              <div class="label">
+                <a href="{{ $el.Page.RelPermalink }}">{{ .Page.Title }} <sup>{{ $el.Count }}</sup></a>
+                <svg class="right--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </div>
+            </span>
+          </li>
+          {{- if and (ne $index 0) (eq (mod $index 15) 0) -}}
+          </ul>
+          </div>
+          <div class="sub__menu">
+            <h3 class="title">&nbsp</h3>
+          <ul class="subMenu__items sec--menu">
+          {{- end -}}
+          {{- end -}}
+        </ul>
+      </div>
+    </div>
+    {{- else if eq (trim .Name " ") "Posts" -}}
+    <div id="{{ .Name }}">
+      <div class="sub__menu">
+        <h3 class="title">{{- T "featured_posts" -}}</h3>
+        <ul class="subMenu__items">
+        {{- with first $featured (where $postpages "Params.featured" true)}}
+          {{- range . }}
+            <li class="subMenu--item">
+              <i class="fa fa-star icon--production" style="color: gold;" aria-hidden="true"></i>
+              <span class="label__container">
+                <div class="label">
+                  <a href="{{ .RelPermalink }}"> {{ .Title }}</a>
+                  <svg class="right--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </div>
+                <div class="label--desc">
+                  {{- with .Site.Params.dateFormat | default "2006-01-02" | .PublishDate.Format -}}
+                    &nbsp;{{- printf `<time datetime="%v">%v</time>` . . | dict "Date" | T "publishedOnDate" | safeHTML -}}
+                  {{- end -}}
+                </div>
+              </span>
+            </li>
+          {{- end }}
+        {{- end }}
+          </ul>
+      </div>
+    </div>
+    {{- end -}}
+    {{- /* END: PK Menu Edits */ -}}
+  {{- end -}}
+  </div>
+</section>

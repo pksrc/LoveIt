@@ -33,7 +33,7 @@
         {{- $config = dict "type" "algolia" "algoliaIndex" $search.algolia.index "algoliaAppID" $search.algolia.appID "algoliaSearchKey" $search.algolia.searchKey | dict "search" | merge $config -}}
     {{- end -}}
 {{- end -}}
-
+  
 {{- /* lazysizes */ -}}
 {{- $source := $cdn.lazysizesJS | default "lib/lazysizes/lazysizes.min.js" -}}
 {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
@@ -191,6 +191,10 @@
 {{- /* Theme script */ -}}
 {{- dict "Source" "js/theme.min.js" "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
 {{- $_ := (resources.Get "js/theme.min.js.map").RelPermalink -}}
+
+{{- /* stripe-menu */ -}}
+{{- $source := $cdn.stripemenuJS | default "lib/stripe-menu/menu.js" -}}
+{{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
 
 {{- with (.Scratch.Get "this").scriptArr -}}
     {{- delimit . "\n" | dict "Content" | dict "Scratch" $.Scratch "Data" | partial "scratch/script.html" -}}
