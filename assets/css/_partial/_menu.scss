@@ -9,7 +9,7 @@ section.header__expandMenu {
   list-style: none;
 }
 
-.nav--link {
+.nav--link, .menu-item {
   margin: 0 .5rem;
   transition: opacity 100ms linear;
   cursor: pointer;
@@ -24,13 +24,13 @@ section.header__expandMenu {
   img.img {
   height: 20px;
   width: 20px;
-  margin: -4px auto;
+  margin: -4px 4px;
   }
   
   img.svg {
   height: 20px;
   width: 20px;
-  margin: -4px auto;
+  margin: -4px 4px;
   transform: scaleX(-1);
   }
   
@@ -261,7 +261,7 @@ section.header__expandMenu {
 
 
 .prev {
-  transform: translateX(-65%);
+  //transform: translateX(-65%);
 }
 
 .expand {
