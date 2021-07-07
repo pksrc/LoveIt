@@ -92,4 +92,10 @@
             {{- . | safeHTML -}}
         </h3>
     {{- end -}}
+
+    {{- with $profile.guest -}}
+        <h3 class="home-guest">
+            {{- . | markdownify -}}
+        </h3>
+    {{- end -}}
 </div>

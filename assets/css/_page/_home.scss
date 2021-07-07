@@ -39,6 +39,27 @@
       padding: .5rem;
     }
 
+    .home-guest {
+      font-size: 0.85rem;
+      font-weight: normal;
+      line-height: 1rem;
+      border: 1px solid gray !important;
+      box-shadow: 0px 0px 5px 0px lightgray !important;
+      border-radius: 10px;
+      padding: 10px;
+      margin-left: 5px;
+      margin-right: 5px;
+
+      a {
+        color: $global-link-hover-color !important;
+      }
+
+      [theme=dark] & {
+        border: 1px solid aliceblue !important;
+        box-shadow: 0px 0px 5px 0px aliceblue !important;
+      }
+    }
+
     .links {
       padding: .5rem;
       font-size: 1.5rem;
@@ -187,6 +208,10 @@
         padding: 0;
 
         @include link(true, true);
+      }
+
+      a {
+        color: $global-link-hover-color !important;
       }
     }
   }
